@@ -1,5 +1,5 @@
 package com.example.scrollingview;
-
+import com.example.scrollingview.friends;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Typeface;
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             listView.addHeaderView(textView);
 
             // For populating list data
-            friends customCountryList = new friends(this, friendsNames, catchPhrases, imageid);
-            listView.setAdapter(customCountryList);
+            friends Friends = new friends(this, friendsNames, catchPhrases, imageid);
+            listView.setAdapter(Friends);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
