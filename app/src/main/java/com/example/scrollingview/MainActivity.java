@@ -1,11 +1,17 @@
 package com.example.scrollingview;
-import com.example.scrollingview.friends;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,17 +55,48 @@ public class MainActivity extends AppCompatActivity {
             textView.setTypeface(Typeface.DEFAULT_BOLD);
             textView.setText("List of friends");
 
-            ListView listView=(ListView)findViewById(android.R.id.list);
+            listView=findViewById(android.R.id.list);
             listView.addHeaderView(textView);
 
             // For populating list data
-            friends Friends = new friends(this, friendsNames, catchPhrases, imageid);
+            item Friends = new item(this, friendsNames, catchPhrases, imageid);
             listView.setAdapter(Friends);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Toast.makeText(getApplicationContext(),"You Selected "+friendsNames[position-1]+ " as friends",Toast.LENGTH_SHORT).show();        }
+                    Toast.makeText(getApplicationContext(),"You Selected "+friendsNames[position-1]+ " as friends",Toast.LENGTH_SHORT).show();
+                }
             });
         }
     }
+class item extends ArrayAdapter {
+    private String[] friendsNames;
+    private String[] catchPhrases;
+    private Integer[] imageid;
+    private Context context;
+
+    public item(Context context, String[] friendsNames, String[] catchPhrases, Integer[] imageid) {
+        super(context, R.layout.item, friendsNames);
+        this.context = context;
+        this.friendsNames = friendsNames;
+        this.catchPhrases = catchPhrases;
+        this.imageid = imageid;
+
+    }
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @Nullable ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View row=inflater.inflate(R.layout.item,parent,false);
+        TextView textViewFriends = (TextView) row.findViewById(R.id.textViewFriends);
+        TextView textViewPhrases = (TextView) row.findViewById(R.id.textViewPhrases);
+        ImageView imageFlag = (ImageView) row.findViewById(R.id.imageViewFlag);
+
+        textViewFriends.setText(friendsNames[position]);
+        textViewPhrases.setText(catchPhrases[position]);
+        imageFlag.setImageResource(imageid[position]);
+        return  row;
+    }
+}
+
