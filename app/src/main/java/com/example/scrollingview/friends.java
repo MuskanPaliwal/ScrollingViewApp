@@ -12,16 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 public class friends extends ArrayAdapter {
-    private String[] countryNames;
-    private String[] capitalNames;
+    private String[] friendsNames;
+    private String[] catchPhrases;
     private Integer[] imageid;
     private Activity context;
 
-    public friends(Activity context, String[] countryNames, String[] capitalNames, Integer[] imageid) {
-        super(context, R.layout.row_item, countryNames);
+    public friends(Activity context, String[] friendsNames, String[] catchPhrases, Integer[] imageid) {
+        super(context, R.layout.row_item, friendsNames);
         this.context = context;
-        this.countryNames = countryNames;
-        this.capitalNames = capitalNames;
+        this.friendsNames = friendsNames;
+        this.catchPhrases = catchPhrases;
         this.imageid = imageid;
 
     }
@@ -36,8 +36,8 @@ public class friends extends ArrayAdapter {
         TextView textViewCapital = (TextView) row.findViewById(R.id.textViewCapital);
         ImageView imageFlag = (ImageView) row.findViewById(R.id.imageViewFlag);
 
-        textViewCountry.setText(countryNames[position]);
-        textViewCapital.setText(capitalNames[position]);
+        textViewCountry.setText(friendsNames[position]);
+        textViewCapital.setText(catchPhrases[position]);
         imageFlag.setImageResource(imageid[position]);
         return  row;
     }
